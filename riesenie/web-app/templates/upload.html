@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Klasifikátor húb</title>
+  </head>
+
+  <body>
+    <main class="flex flex-col items-center gap-y-8 mt-20">
+      <h1 class="text-3xl drop-shadow-2xl font-semibold">
+        Klasifikátor obrázkov húb
+      </h1>
+      <form
+        class="flex flex-col gap-y-8 items-center"
+        action="http://127.0.0.1:5000/"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="flex flex-col">
+          <div class="flex w-full items-center justify-center bg-grey-lighter">
+            <label
+              class="w-60 flex flex-col items-center px-4 py-4 bg-white text-black rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-black hover:text-white transform cursor:pointer hover:scale-105 cursor-pointer transition duration-500 linear"
+            >
+              <svg
+                class="w-8 h-8"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
+                />
+              </svg>
+              <span
+                class="mt-2 text-base leading-normal drop-shadow-xl text-center"
+                >Vyberte obrázok huby</span
+              >
+              <input
+                type="file"
+                class="hidden"
+                name="file"
+                id="imgInp"
+                accept=".png, .jpg, .jpeg"
+                onchange="loadFile(event)"
+              />
+            </label>
+          </div>
+        </div>
+        {% if percentage %}
+        <div id="result">
+          <div class="flex flex-row">
+            <h1 class="text-lg font-semibold text-center">Druh huby:</h1>
+            <h1 class="text-lg text-center pl-2">{{ label }}</h1>
+          </div>
+          <div class="flex flex-row">
+            <h1 class="text-lg font-semibold text-center">Jedlosť huby:</h1>
+            <h1 class="text-lg text-center pl-2">{{ edibility }}</h1>
+          </div>
+          <div class="flex flex-row">
+            <h1 class="text-lg font-semibold text-center">
+              Presnosť predikcie:
+            </h1>
+            <h1 class="text-lg text-center pl-2">{{ percentage }}%</h1>
+          </div>
+        </div>
+        {% endif %}
+        <img
+          class="w-60 h-60 mx-auto rounded-lg hidden"
+          id="output"
+          src="#"
+          alt="Váš obrázok"
+        />
+
+        <button
+          class="hidden bg-white text-black rounded-lg shadow-lg h-10 rounded-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-black hover:text-white transform cursor:pointer hover:scale-105 cursor-pointer transition duration-500 linear w-60"
+          type="submit"
+          id="predict"
+        >
+          Predikovať
+        </button>
+      </form>
+    </main>
+  </body>
+</html>
+
+<script>
+  var loadFile = function (event) {
+    var output = document.getElementById("output");
+    output.classList.remove("hidden");
+    output.classList.add("block");
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function () {
+      URL.revokeObjectURL(output.src);
+    };
+    var predict = document.getElementById("predict");
+    predict.classList.remove("hidden");
+    predict.classList.add("block");
+
+    var result = document.getElementById("result");
+    result.classList.remove("block");
+    result.classList.add("hidden");
+  };
+</script>
