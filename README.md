@@ -1,1 +1,5 @@
-# BP
+# Bachelor's thesis
+
+### Annotation
+
+This bachelor thesis deals with the development of a convolutional neural network (CNN) model that will be able to recognize images of fungi. The developed model is to be deployed in a web application, which will then be containerized using Docker together with a model development tool (Jupyter notebook) and a tool for monitoring accuracy metric and loss function during model training (TensorBoard). The work describes the basic concepts from artificial intelligence to convolutional neural networks. It analyzes the current state in the field of image recognition using CNN and describes the solution and the performed experiments. The result of the bachelor thesis is a developed model of the convolutional neural network EfficientNet-B1, which is able to recognize 16 species of fungi. The model was trained using the transfer learning method and achieved high accuracy, precision, recall and f1-score on the test dataset. The model is deployed in a web application that contains a simple user interface with the ability to upload image of the fungi and then predict the type of fungi using the developed model. The web application containing the developed model, together with the Jupyter notebook and TensorBorad, is containerized using Docker.
